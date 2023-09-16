@@ -14,7 +14,7 @@ Sender = arcpy.GetParameterAsText(1)
 Shapefiles = arcpy.GetParameter(2)
 if not Sharepoint_connection:
 	Sharepoint_connection = r'D:\Development\MplsPythonScript\20211201\CodeNew\LocatorMapTools\FakeSharepoint'
-	Sender = 'John Studtmann'
+	Sender = 'Katie Mayo'
 	Shapefiles = True
 
 ChromeDriverPath = r"M:\PWSWS\XSHARE\Katie\CurrentTools\chromedriver"
@@ -45,18 +45,16 @@ log.write("\n Maps will be saved here: {}".format(output_path))
 # search korterra for assigned non-excav tickets
 driver.get(r"https://mn.korweb.com/Tickets")
 time.sleep(timesleep)
-driver.find_element_by_id("CustomerId").send_keys("MINNEAPOLIS")
+driver.find_element_by_id("CustomerId").send_keys("-------")
 driver.find_element_by_id("customer-redirect-submit-btn").click()
 time.sleep(timesleep)
-driver.find_element_by_id("username").send_keys("SWSENGINEER")
-driver.find_element_by_id("password").send_keys("SWSLocate123!")
+driver.find_element_by_id("username").send_keys("-------")
+driver.find_element_by_id("password").send_keys("-------")
 time.sleep(timesleep)
 driver.find_element_by_xpath("//*[@id='page-ui-container']/div/div/div/div[2]/div[1]/div/form/div[3]/button").click()
 time.sleep(timesleep)
 driver.find_element_by_id("ddMobile").send_keys("SEWER_NONEXCAV - Sewer Non-Excavation")
 driver.find_element_by_id("ddStatus").send_keys("NEW+ASSIGNED")
-#driver.find_element_by_id("txtJobid").send_keys("213560096")
-#driver.find_element_by_id("txtJobid").send_keys("221254493")
 driver.find_element_by_name("js-ticketsearch-gridkorterra_datatable_length").send_keys("500")
 time.sleep(timesleep)
 driver.find_element_by_id("btnSearch").click()
@@ -64,6 +62,7 @@ time.sleep(timesleep)
 # translate selenium link to beautifulsoup
 html = driver.page_source
 soup = BeautifulSoup(html)
+
 # find table and extract area of href link. Outputs a list of the links to all assigned tickets.
 table_data = soup.find('table')
 links_list = table_data.find_all('a', class_='ticketLink')
